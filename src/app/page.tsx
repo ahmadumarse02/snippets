@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import { getAllStaff } from "@/actions/allSnippets";
 
 export default async function Home() {
-  const snippets = await prisma.snippet.findMany();
+  const snippets = await getAllStaff();
 
   return (
     <>
