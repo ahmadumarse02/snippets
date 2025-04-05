@@ -4,8 +4,6 @@ import React from "react";
 import { prisma } from "@/lib/prisma";
 import EditorSnippet from "@/components/EditorSnippet";
 
-export const dynamic = 'force-static';
-
 const EditPage = async ({
   params,
 }: {
