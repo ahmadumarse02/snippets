@@ -5,6 +5,8 @@ import Link from "next/link";
 import * as actions from "@/actions";
 import { notFound } from "next/navigation";
 
+export const dynamic = 'force-static';
+
 const SnippetDetail = async ({
   params,
 }: {
