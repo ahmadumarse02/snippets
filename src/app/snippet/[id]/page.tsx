@@ -1,4 +1,3 @@
-// app/snippet/[id]/page.tsx
 import React from "react";
 import { prisma } from "@/lib/prisma";
 import { Button } from "@/components/ui/button";
@@ -12,7 +11,11 @@ interface Snippet {
   code: string;
 }
 
-const SnippetDetail = async ({ params }: { params: { id: string } }) => {
+interface PageProps {
+  params: { id: string };
+}
+
+const SnippetDetail = async ({ params }: PageProps) => {
   let snippet: Snippet | null = null;
   
   try {
@@ -21,7 +24,6 @@ const SnippetDetail = async ({ params }: { params: { id: string } }) => {
       return notFound();
     }
 
-    // Try to fetch snippet from database
     snippet = await prisma.snippet.findUnique({
       where: { id },
     });
@@ -32,7 +34,6 @@ const SnippetDetail = async ({ params }: { params: { id: string } }) => {
   } catch (error) {
     console.error("Database error:", error);
     
-    // In production build, return a fallback UI
     if (process.env.NODE_ENV === 'production') {
       snippet = {
         id: 0,
@@ -40,7 +41,6 @@ const SnippetDetail = async ({ params }: { params: { id: string } }) => {
         code: "// Code loading...\n// Database connection unavailable during build",
       };
     } else {
-      // In development, throw the error
       throw error;
     }
   }
@@ -68,9 +68,5 @@ const SnippetDetail = async ({ params }: { params: { id: string } }) => {
     </div>
   );
 };
-
-// Disable static generation
-export const dynamic = 'force-dynamic';
-export const dynamicParams = false;
 
 export default SnippetDetail;
