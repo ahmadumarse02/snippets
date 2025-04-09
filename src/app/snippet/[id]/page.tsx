@@ -48,3 +48,6 @@ const SnippetDetail = async ({
 };
 
 export default SnippetDetail;
+
+
+export const dynamic = 'force-dynamic';
