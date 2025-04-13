@@ -3,7 +3,22 @@ import Link from "next/link";
 import { getAllStaff } from "@/actions/allSnippets";
 
 export default async function Home() {
-  const snippets = await getAllStaff();
+  interface Snippet {
+    id: string;
+    title: string;
+    code: string;
+  }
+
+  let snippets: Snippet[] = [];
+  
+  try {
+    snippets = (await getAllStaff()).map((snippet) => ({
+      ...snippet,
+      id: snippet.id.toString(),
+    }));
+  } catch (error) {
+    console.error("Failed to fetch snippets:", error);
+  }
 
   return (
     <>
