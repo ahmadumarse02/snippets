@@ -11,15 +11,12 @@ interface Snippet {
   code: string;
 }
 
-interface PageProps {
-  params: { id: string };
-}
 
-const SnippetDetail = async ({ params }: PageProps) => {
+const SnippetDetail = async ({ params }: {params: Promise<{id: string}>}) => {
   let snippet: Snippet | null = null;
   
   try {
-    const id = parseInt(params.id);
+    const id = parseInt((await params).id);
     if (isNaN(id)) {
       return notFound();
     }
